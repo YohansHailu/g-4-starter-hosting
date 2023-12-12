@@ -1,1 +1,0 @@
-# G4-Second-Year-Starter-Project - Web
