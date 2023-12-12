@@ -1,3 +1,7 @@
+using Persistence;
+using Microsoft.AspNetCore.Identity;
+using Domain;
+    
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,6 +9,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// its using extension method
+builder.Services.ConfigurePersistenceServices();
+
+// adding UserManager Service
+builder.Services.AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
+
+
 
 var app = builder.Build();
 

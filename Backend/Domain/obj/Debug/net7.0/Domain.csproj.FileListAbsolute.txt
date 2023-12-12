@@ -1,0 +1,12 @@
+/home/yohansh/G4-Second-Year-Starter-Project/Backend/Domain/bin/Debug/net7.0/Domain.deps.json
+/home/yohansh/G4-Second-Year-Starter-Project/Backend/Domain/bin/Debug/net7.0/Domain.dll
+/home/yohansh/G4-Second-Year-Starter-Project/Backend/Domain/bin/Debug/net7.0/Domain.pdb
+/home/yohansh/G4-Second-Year-Starter-Project/Backend/Domain/obj/Debug/net7.0/Domain.csproj.AssemblyReference.cache
+/home/yohansh/G4-Second-Year-Starter-Project/Backend/Domain/obj/Debug/net7.0/Domain.GeneratedMSBuildEditorConfig.editorconfig
+/home/yohansh/G4-Second-Year-Starter-Project/Backend/Domain/obj/Debug/net7.0/Domain.AssemblyInfoInputs.cache
+/home/yohansh/G4-Second-Year-Starter-Project/Backend/Domain/obj/Debug/net7.0/Domain.AssemblyInfo.cs
+/home/yohansh/G4-Second-Year-Starter-Project/Backend/Domain/obj/Debug/net7.0/Domain.csproj.CoreCompileInputs.cache
+/home/yohansh/G4-Second-Year-Starter-Project/Backend/Domain/obj/Debug/net7.0/Domain.dll
+/home/yohansh/G4-Second-Year-Starter-Project/Backend/Domain/obj/Debug/net7.0/refint/Domain.dll
+/home/yohansh/G4-Second-Year-Starter-Project/Backend/Domain/obj/Debug/net7.0/Domain.pdb
+/home/yohansh/G4-Second-Year-Starter-Project/Backend/Domain/obj/Debug/net7.0/ref/Domain.dll

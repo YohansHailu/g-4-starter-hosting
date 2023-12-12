@@ -1,0 +1,17 @@
+/home/yohansh/G4-Second-Year-Starter-Project/Backend/Persistence/bin/Debug/net7.0/Persistence.deps.json
+/home/yohansh/G4-Second-Year-Starter-Project/Backend/Persistence/bin/Debug/net7.0/Persistence.dll
+/home/yohansh/G4-Second-Year-Starter-Project/Backend/Persistence/bin/Debug/net7.0/Persistence.pdb
+/home/yohansh/G4-Second-Year-Starter-Project/Backend/Persistence/bin/Debug/net7.0/Domain.dll
+/home/yohansh/G4-Second-Year-Starter-Project/Backend/Persistence/bin/Debug/net7.0/Domain.pdb
+/home/yohansh/G4-Second-Year-Starter-Project/Backend/Persistence/obj/Debug/net7.0/Persistence.csproj.AssemblyReference.cache
+/home/yohansh/G4-Second-Year-Starter-Project/Backend/Persistence/obj/Debug/net7.0/Persistence.GeneratedMSBuildEditorConfig.editorconfig
+/home/yohansh/G4-Second-Year-Starter-Project/Backend/Persistence/obj/Debug/net7.0/Persistence.AssemblyInfoInputs.cache
+/home/yohansh/G4-Second-Year-Starter-Project/Backend/Persistence/obj/Debug/net7.0/Persistence.AssemblyInfo.cs
+/home/yohansh/G4-Second-Year-Starter-Project/Backend/Persistence/obj/Debug/net7.0/Persistence.csproj.CoreCompileInputs.cache
+/home/yohansh/G4-Second-Year-Starter-Project/Backend/Persistence/obj/Debug/net7.0/Persistence.csproj.CopyComplete
+/home/yohansh/G4-Second-Year-Starter-Project/Backend/Persistence/obj/Debug/net7.0/Persistence.dll
+/home/yohansh/G4-Second-Year-Starter-Project/Backend/Persistence/obj/Debug/net7.0/refint/Persistence.dll
+/home/yohansh/G4-Second-Year-Starter-Project/Backend/Persistence/obj/Debug/net7.0/Persistence.pdb
+/home/yohansh/G4-Second-Year-Starter-Project/Backend/Persistence/obj/Debug/net7.0/ref/Persistence.dll
+/home/yohansh/G4-Second-Year-Starter-Project/Backend/Persistence/bin/Debug/net7.0/Persistence.runtimeconfig.json
+/home/yohansh/G4-Second-Year-Starter-Project/Backend/Persistence/obj/Debug/net7.0/Persistence.genruntimeconfig.cache

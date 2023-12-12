@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "ptgQ3fFrFDMJcfQNKV3NU73lySgC6vORoucA+/z7H+K3vT0iFYcVRfIANWyJ5Ihm44bCNlpPPQgTuWNm7jtw6Q==",
+  "success": true,
+  "projectFilePath": "/home/yohansh/G4-Second-Year-Starter-Project/Backend/Application/Application.csproj",
+  "expectedPackageFiles": [
+    "/home/yohansh/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.13/microsoft.aspnetcore.app.ref.7.0.13.nupkg.sha512"
+  ],
+  "logs": []
+}
