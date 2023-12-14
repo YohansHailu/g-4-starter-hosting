@@ -1,19 +1,21 @@
-using Microsoft.AspNetCore.Mvc; 
+using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 
 using Domain;
 using API.Controllers.Dto;
 using API.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
-namespace API.Controllers; 
+namespace API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
 public class UserController : Controller
 {
-    
+
     private readonly UserManager<User> _userManager;
     private readonly AuthenticationTokenService _tokenService;
 
@@ -24,7 +26,7 @@ public class UserController : Controller
 
     }
 
-    
+
     [HttpPost("login")]
     public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
     {
@@ -40,22 +42,22 @@ public class UserController : Controller
         }
         return Unauthorized("Wrong Password");
     }
-    
+
     [Authorize]
     [HttpGet("all")]
     public IActionResult GetAllUsers()
     {
         return Ok(_userManager.Users.ToList());
     }
-    
+
     [Authorize]
     [HttpGet("testAuth")]
     public IActionResult AuthTest()
     {
-        return Ok("authorization works");
+        return Ok("authorization is working");
     }
-    
-    
+
+
     [HttpPost("register")]
     public async Task<IActionResult> AddUser([FromBody] RegisterDto userDot)
     {
@@ -65,7 +67,7 @@ public class UserController : Controller
             return BadRequest(errors);
         }
 
-        var existingEmail = await  _userManager.FindByEmailAsync(userDot.email);
+        var existingEmail = await _userManager.FindByEmailAsync(userDot.email);
         if (existingEmail != null)
         {
             ModelState.AddModelError("Email", "Email already exits");
@@ -82,12 +84,12 @@ public class UserController : Controller
             var errors = ModelState.Values.SelectMany(v => v.Errors);
             return BadRequest(errors);
         }
-        
-    
+
+
         var user = new User
         {
             Email = userDot.email,
-            UserName= userDot.userName,
+            UserName = userDot.userName,
             Name = userDot.name,
         };
 
@@ -96,7 +98,22 @@ public class UserController : Controller
         {
             return BadRequest(res.Errors.Select((e => e.Description)));
         }
-        
+
         return Ok(_tokenService.CreateUserWithToken(user));
+    }
+
+    [Authorize]
+    [HttpGet("current-user")]
+    public async Task<IActionResult> GetCurrentUser()
+    {
+        
+        var user = await _userManager.Users
+        .FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Email));
+        if (user == null)
+        {
+            return Unauthorized();
+        }
+
+        return Ok(user);
     }
 }
