@@ -1,3 +1,4 @@
+using API.Extensions;
 using Persistence;
 using Microsoft.AspNetCore.Identity;
 using Domain;
@@ -12,6 +13,7 @@ builder.Services.AddSwaggerGen();
 
 // its using extension method
 builder.Services.ConfigurePersistenceServices();
+builder.Services.AddAuthenticationTokenService();
 
 // adding UserManager Service
 builder.Services.AddIdentity<User, IdentityRole>()

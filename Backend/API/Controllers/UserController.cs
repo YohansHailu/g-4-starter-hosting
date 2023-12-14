@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity;
 
 using Domain;
 using API.Controllers.Dto;
+using API.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers; 
 
@@ -12,12 +14,31 @@ public class UserController : Controller
 {
     
     private readonly UserManager<User> _userManager;
+    private readonly AuthenticationTokenService _tokenService;
 
-    public UserController(UserManager<User> userManager)
+    public UserController(UserManager<User> userManager, AuthenticationTokenService tokenService)
     {
         _userManager = userManager;
+        _tokenService = tokenService;
+
     }
+
     
+    [HttpPost("login")]
+    public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
+    {
+        var user = await _userManager.Users
+                    .FirstOrDefaultAsync(x => x.Email == loginDto.Email);
+
+        if (user == null) return Unauthorized("Wrong email");
+
+        var result = await _userManager.CheckPasswordAsync(user, loginDto.Password);
+        if (result)
+        {
+            return Ok(_tokenService.CreateUserWithToken(user));
+        }
+        return Unauthorized("Wrong Password");
+    }
     
     [HttpGet("all")]
     public IActionResult GetAllUsers()
@@ -26,7 +47,7 @@ public class UserController : Controller
     }
     
     
-    [HttpPost("add")]
+    [HttpPost("register")]
     public async Task<IActionResult> AddUser([FromBody] RegisterDto userDot)
     {
         if (!ModelState.IsValid)
@@ -66,6 +87,7 @@ public class UserController : Controller
         {
             return BadRequest(res.Errors.Select((e => e.Description)));
         }
-        return Ok(res);
+        
+        return Ok(_tokenService.CreateUserWithToken(user));
     }
 }
