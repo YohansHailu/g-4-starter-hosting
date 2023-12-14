@@ -1,12 +1,23 @@
-using API.Services;
+using Domain;
+using Persistence;
+
 namespace API.Extensions;
 
-public static  class IdentityServiceRegistration
+public static class IdentityServiceRegistration
 {
-
-        public static IServiceCollection  AddAuthenticationTokenService(this IServiceCollection services)
+    
+        public static IServiceCollection  AddIdentityCoreService(this IServiceCollection services)
         {
-                services.AddScoped<AuthenticationTokenService>();
-                return services;
+                
+            services.AddIdentityCore<User>(
+                    (options =>
+                                {
+                                    options.Password.RequireNonAlphanumeric = false;
+                                    options.User.RequireUniqueEmail = true;
+                                })
+                    )
+                .AddEntityFrameworkStores<AppDbContext>();
+            
+            return services;
         }
 }

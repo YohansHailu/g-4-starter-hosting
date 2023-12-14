@@ -9,7 +9,13 @@ namespace API.Services;
 
 public class AuthenticationTokenService
 {
+    
+    private readonly IConfiguration _config;
 
+    public AuthenticationTokenService(IConfiguration config)
+    {
+        _config = config;
+    }
     public string CreateToken(User user)
     {
         var claims = new List<Claim>
@@ -20,8 +26,8 @@ public class AuthenticationTokenService
             };
 
         // TODO: move the token key to config file
-        // the key should be more than 512 bytes
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("A8B7C6D5E4F3A2B1C0D9E8F7A6B5C4D3E2F1A0B9C8D7E6F5A4B3C2D1E0F9A8B7C6D5E4F3A2B1C0D9E8F7A6B5C4D3E2F1A0B9C8D7E6F5A4B3C2D1E0F9A8B7C6D5E4F3A2B1C0D9E8F7A6B5C4D3E2F1A0B9C8D7E6F5A4B3C2D1E0F9A8B7C6D5E4F3A2B1C0D9E8F7A6B5C4D3E2F1A0B9C8D7"));
+        var tokenKey = _config["tokenKey"];
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenKey));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
         var tokenDescriptor = new SecurityTokenDescriptor
