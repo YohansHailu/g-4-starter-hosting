@@ -1,26 +1,35 @@
 import 'package:mobile/features/question/domain/domain.dart';
 
 class QuestionModel extends Question{
-  QuestionModel({required super.title, required super.content, required super.id, required super.userId});
+
+  final String? id;
+  final String? uId;
+  
+  QuestionModel({this.id,this.uId, required super.title, required super.content});
 
 
   factory QuestionModel.fromJson(Map<String, dynamic> json) {
+    
+    
     return QuestionModel(
-      id: json['_id'] ?? '',
+      id: json['_id'],
+      uId: json['_uId'],
       title: json['title'] ?? '',
       content: json['content'] ?? '',
-      userId: json['userId'] ?? '',
+      
     );
   }
 
     Map<String, dynamic> toJson() {
     return {
-      'id': id,
+      'id':id,
+      'uId':uId,
       'title': title,
       'content': content,
-      'userId': userId,
+   
     };
   }
+
 
 
 }
