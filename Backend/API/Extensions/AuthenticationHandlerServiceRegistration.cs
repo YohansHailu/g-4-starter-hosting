@@ -2,7 +2,6 @@ using System.Net;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Newtonsoft.Json;
 
 namespace API.Extensions;
 
@@ -33,12 +32,6 @@ public static class AuthenticationHandlerServiceRegistration
                    
             });
             
-            
-            
-            
-            
-
-            services.AddAuthorization();
             return services;
             
         }
