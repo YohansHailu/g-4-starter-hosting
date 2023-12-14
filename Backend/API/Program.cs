@@ -17,9 +17,7 @@ builder.Services.AddAuthenticationTokenService();
 builder.Services.AddAuthenticationHandlerService(builder.Configuration);
 
 // adding UserManager Service
-builder.Services.AddIdentityCore<User>()
-    .AddEntityFrameworkStores<AppDbContext>();
-
+builder.Services.AddIdentityCoreService();
 
 
 var app = builder.Build();
