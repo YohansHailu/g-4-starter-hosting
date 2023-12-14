@@ -10,11 +10,11 @@ class QuestionRepositoryImp implements QuestionRepository{
 
   QuestionRepositoryImp({required this.remoteQuestionDataSource});
   @override
-  Future<Either<Failure, QuestionModel>> insertQuestion(String title, String content) async{
+  Future<Either<Failure, QuestionModel>> insertQuestion({required String content, required String title, required dynamic uId}) async{
 
 
  try {
-   final remotedata= await remoteQuestionDataSource.insertQuestion(title: title, content: content);
+   final remotedata= await remoteQuestionDataSource.insertQuestion(title: title, content: content,uId: uId);
      
       return Right(remotedata);
     } on ServerException {
@@ -49,6 +49,7 @@ class QuestionRepositoryImp implements QuestionRepository{
     } on ServerException {
       return Left(ServerFailure());
     }
+
     throw UnimplementedError();
   }
   
