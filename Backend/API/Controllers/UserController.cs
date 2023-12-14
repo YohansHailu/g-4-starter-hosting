@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Domain;
 using API.Controllers.Dto;
 using API.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers; 
@@ -40,10 +41,18 @@ public class UserController : Controller
         return Unauthorized("Wrong Password");
     }
     
+    [Authorize]
     [HttpGet("all")]
     public IActionResult GetAllUsers()
     {
         return Ok(_userManager.Users.ToList());
+    }
+    
+    [Authorize]
+    [HttpGet("testAuth")]
+    public IActionResult AuthTest()
+    {
+        return Ok("authorization works");
     }
     
     

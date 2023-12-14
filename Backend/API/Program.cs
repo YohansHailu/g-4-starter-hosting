@@ -12,13 +12,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // its using extension method
-builder.Services.ConfigurePersistenceServices();
+builder.Services.ConfigurePersistenceServices(builder.Configuration);
 builder.Services.AddAuthenticationTokenService();
+builder.Services.AddAuthenticationHandlerService(builder.Configuration);
 
 // adding UserManager Service
-builder.Services.AddIdentity<User, IdentityRole>()
-    .AddEntityFrameworkStores<AppDbContext>()
-    .AddDefaultTokenProviders();
+builder.Services.AddIdentityCore<User>()
+    .AddEntityFrameworkStores<AppDbContext>();
 
 
 
@@ -32,8 +32,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
+#pragma warning disable ASP0014
 app.MapControllers();
-
 app.Run();
