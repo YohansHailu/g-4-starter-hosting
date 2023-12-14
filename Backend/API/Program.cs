@@ -2,7 +2,7 @@ using API.Extensions;
 using Persistence;
 using Microsoft.AspNetCore.Identity;
 using Domain;
-    
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -33,6 +33,6 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
-#pragma warning disable ASP0014
+app.MapGet("/", () => "Hello World!");
 app.MapControllers();
 app.Run();
