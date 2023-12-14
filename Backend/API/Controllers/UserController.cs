@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 using Domain;
 using API.Controllers.Dto;
+using API.Services;
 
 namespace API.Controllers; 
 
@@ -12,10 +13,25 @@ public class UserController : Controller
 {
     
     private readonly UserManager<User> _userManager;
+    private readonly AuthenticationTokenService _tokenService;
 
-    public UserController(UserManager<User> userManager)
+    public UserController(UserManager<User> userManager, AuthenticationTokenService tokenService)
     {
         _userManager = userManager;
+        _tokenService = tokenService;
+
+    }
+
+    public UserDto createUserWithToken(User user)
+    {
+        var token = _tokenService.CreateToken(user);
+
+        return new UserDto
+        {
+            Token  = token,
+            Username = user.UserName
+        };
+
     }
     
     
@@ -66,6 +82,7 @@ public class UserController : Controller
         {
             return BadRequest(res.Errors.Select((e => e.Description)));
         }
-        return Ok(res);
+        
+        return Ok(createUserWithToken(user));
     }
 }

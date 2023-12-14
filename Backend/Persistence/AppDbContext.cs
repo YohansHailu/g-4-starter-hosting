@@ -6,6 +6,8 @@ namespace Persistence;
 public class AppDbContext : IdentityDbContext<User>
 {
 
+    
+    // TODO: move the token the database string to config file 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         //TODO: move the connection string to config file 
