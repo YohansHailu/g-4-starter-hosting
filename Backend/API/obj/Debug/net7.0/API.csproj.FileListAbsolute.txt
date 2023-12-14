@@ -73,3 +73,5 @@
 /home/yohansh/G4-Second-Year-Starter-Project/Backend/API/bin/Debug/net7.0/Persistence.dll
 /home/yohansh/G4-Second-Year-Starter-Project/Backend/API/bin/Debug/net7.0/Domain.pdb
 /home/yohansh/G4-Second-Year-Starter-Project/Backend/API/bin/Debug/net7.0/Persistence.pdb
+/home/yohansh/G4-Second-Year-Starter-Project/Backend/API/bin/Debug/net7.0/Npgsql.dll
+/home/yohansh/G4-Second-Year-Starter-Project/Backend/API/bin/Debug/net7.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
