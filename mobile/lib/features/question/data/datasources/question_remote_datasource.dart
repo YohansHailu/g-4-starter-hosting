@@ -11,7 +11,7 @@ abstract class RemoteQuestionDataSource {
 
   Future<QuestionModel> insertQuestion({required uId,required String title, required String content});
   Future<Question> getQuestion({required String id});
-  Future<void> updateQuestion({required id,required uId,required String title, required String content});
+  Future<Question> updateQuestion({required id,required uId,required String title, required String content});
   Future<void> deleteQuestion({required String id});
 
 }
@@ -64,7 +64,7 @@ class RemoteQuestionDataSourceImp implements RemoteQuestionDataSource {
 
 
   @override
-  Future<void> updateQuestion({required id, required uId, required String title, required String content})async {
+  Future<Question> updateQuestion({required id, required uId, required String title, required String content})async {
     String token = "";// User token
     try {
       Map data;
@@ -79,6 +79,7 @@ class RemoteQuestionDataSourceImp implements RemoteQuestionDataSource {
            "Authorization": "Bearer ${token.toString()}"
         },
       );
+      return QuestionModel.fromJson(jsonDecode(response.body));
 
      
     } catch (e) {

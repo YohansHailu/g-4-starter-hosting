@@ -40,7 +40,7 @@ class QuestionRepositoryImp implements QuestionRepository{
   }
   
   @override
-  Future<Either<Failure, void>> updateQuestion(Question question) async{
+  Future<Either<Failure, Question>> updateQuestion(Question question) async{
    
    try {
        final remotedata= await remoteQuestionDataSource.updateQuestion(id: question.id,uId: question.uId, title: question.title, content: question.content);
@@ -50,7 +50,7 @@ class QuestionRepositoryImp implements QuestionRepository{
       return Left(ServerFailure());
     }
 
-    throw UnimplementedError();
+    
   }
   
   @override

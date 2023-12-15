@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile/core/constants/constants.dart';
 
-class EditQuestionPage extends StatelessWidget {
+class EditQuestionPage extends StatefulWidget {
   const EditQuestionPage({super.key});
 
+  @override
+  State<EditQuestionPage> createState() => _EditQuestionPageState();
+}
+
+class _EditQuestionPageState extends State<EditQuestionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -2,8 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile/core/constants/constants.dart';
 
-class CreateQuestionPage extends StatelessWidget {
+class CreateQuestionPage extends StatefulWidget {
   const CreateQuestionPage({super.key});
+
+
+
+  @override
+  State<CreateQuestionPage> createState() => _CreateQuestionPageState();
+}
+
+class _CreateQuestionPageState extends State<CreateQuestionPage> {
+
+
+    TextEditingController titleController = TextEditingController();
+  TextEditingController contentController = TextEditingController();
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +69,7 @@ class CreateQuestionPage extends StatelessWidget {
           child: Column(children: [
             Flexible(
                 child: TextField(
+              controller: titleController,
               decoration: inputDecoration.copyWith(
                   hintText: "Topic",
                   hintStyle: mainFont.copyWith(color: Colors.black)),
@@ -60,6 +80,7 @@ class CreateQuestionPage extends StatelessWidget {
             Flexible(
                 flex: 2,
                 child: TextField(
+                  controller: contentController,
                   maxLines: 8,
                   keyboardType: TextInputType.multiline,
                   decoration: inputDecoration.copyWith(

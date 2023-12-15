@@ -11,7 +11,7 @@ class UpdateQuestionUsecase extends UseCase<void,UpdateQuestionParameter>{
 
   UpdateQuestionUsecase({required this.questionRepository});
   @override
-  Future<Either<Failure, void>> call(UpdateQuestionParameter params) async{
+  Future<Either<Failure, Question>> call(UpdateQuestionParameter params) async{
 
     return await questionRepository.updateQuestion(Question( id: params.id,    uId:   params.uId, title: params.title,content: params.content));
 

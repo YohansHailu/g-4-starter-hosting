@@ -3,9 +3,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile/core/constants/app_colors.dart';
 import 'package:mobile/core/constants/app_style.dart';
 
-class QuestionDetailPage extends StatelessWidget {
+class QuestionDetailPage extends StatefulWidget {
   const QuestionDetailPage({super.key});
 
+  @override
+  State<QuestionDetailPage> createState() => _QuestionDetailPageState();
+}
+
+class _QuestionDetailPageState extends State<QuestionDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
