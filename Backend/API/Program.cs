@@ -2,10 +2,12 @@ using API.Extensions;
 using Persistence;
 using Microsoft.AspNetCore.Identity;
 using Domain;
+using Application;
     
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.ConfigureApplicationServices();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
