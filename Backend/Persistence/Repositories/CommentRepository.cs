@@ -5,10 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.Contracts;
 
 namespace Persistence.Repositories
 {
-    public class CommentRepository : GenericRepository<Comment>
+    public class CommentRepository : GenericRepository<Comment>, ICommentRepository
     {
         private readonly AppDbContext _dbContext;
 
