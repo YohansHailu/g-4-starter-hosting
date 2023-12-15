@@ -19,7 +19,7 @@ namespace Application.Features.Ratings.Handlers.Queries
 
         public async Task<List<RatingDto>> Handle(GetRatingListRequest request, CancellationToken cancellationToken)
         {
-            var rating = await _ratingRepository.GetAll(request.Id);
+            var rating = await _ratingRepository.GetAll();
 
             return _mapper.Map<List<RatingDto>>(rating);
         }

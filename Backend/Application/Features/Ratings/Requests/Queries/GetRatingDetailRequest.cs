@@ -5,6 +5,6 @@ namespace Application.Features.Ratings.Requests.Queries
 {
     public class GetRatingDetailRequest : IRequest<RatingDto>
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
     }
 }

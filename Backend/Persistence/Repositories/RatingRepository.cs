@@ -1,10 +1,11 @@
+using Application.Contracts;
 using Domain;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Repositories.GenericRepository;
 
 namespace Persistence.Repositories
 {
-    public class RatingRepository : GenericRepository<Rating>
+    public class RatingRepository : GenericRepository<Rating>, IRatingRepository
     {
         private readonly AppDbContext _dbContext;
 

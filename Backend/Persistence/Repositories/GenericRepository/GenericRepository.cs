@@ -1,7 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-namespace Persistence.Repositories.GenericRepository;
+using Application.Contracts;
 
-public class GenericRepository<T> where T : class
+namespace Persistence.Repositories.GenericRepository;
+public class GenericRepository<T> : IGenericRepository<T> where T : class
 {
         private readonly AppDbContext _dbContext;
 
@@ -13,12 +14,14 @@ public class GenericRepository<T> where T : class
         public async Task<T> Add(T entity)
         {
             await _dbContext.AddAsync(entity);
+            await _dbContext.SaveChangesAsync();
             return entity;
         }
 
         public async Task Delete(T entity)
         {
             _dbContext.Set<T>().Remove(entity);
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task<bool> Exists(Guid id)
@@ -39,7 +42,8 @@ public class GenericRepository<T> where T : class
 
         public async Task Update(T entity)
         {
-           _dbContext.Entry(entity).State = EntityState.Modified;
+            _dbContext.Update(entity);
+            await _dbContext.SaveChangesAsync();
+            _dbContext.Entry(entity).State = EntityState.Modified;
         }
-
 }
