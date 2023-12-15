@@ -9,14 +9,15 @@ namespace Persistence.Repositories
     {
         private readonly AppDbContext _dbContext;
 
-        public async Task<IReadOnlyList<Rating>> GetAll(Guid Id)
-        {
-            return await _dbContext.Set<Rating>().ToListAsync();
-        }
         public RatingRepository(AppDbContext dbContext):base(dbContext)
         {
-            
+            _dbContext = dbContext;
         }
+        public async Task<IReadOnlyList<Rating>> GetAllRatingsForBlog(Guid blogId)
+        {
+            return await _dbContext.Ratings.Where(r => r.BlogId == blogId).ToListAsync();
+        }
+
         
     }
 }

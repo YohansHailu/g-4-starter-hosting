@@ -5,17 +5,15 @@ using Application.DTOs.Comment;
 
 namespace Application.Profiles
 {
-    public class MappingProfile : Profile
+    public class RatingProfile : Profile
     {
-        
-         public MappingProfile()
-         {
+        public RatingProfile()
+        {
             CreateMap<Rating, RatingDto>().ReverseMap();
             CreateMap<Comment, LeaveCommentDTO>().ReverseMap();
             CreateMap<Comment, ReplyToCommentDTO>().ReverseMap();
             CreateMap<Comment, UpdateCommentDTO>().ReverseMap();
             CreateMap<Comment, CommentDTO>().ReverseMap();
-
-         }
+        }
     }
 }
