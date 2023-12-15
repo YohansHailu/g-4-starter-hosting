@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 
 class Question extends Equatable {
-  String? id;
-  String? uId;
-  String title;
-  String content;
+  final String? id;
+  final String? uId;
+  final String title;
+  final String content;
 
 
-  Question(
+  const Question(
       {
         this.id ,
         this.uId,

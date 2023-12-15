@@ -43,12 +43,12 @@ class EditQuestionEvent extends QuestionEvent{
 
 
 class QuestionUpdateEvent extends QuestionEvent{
-  final String id;
+  final String? id;
   final String uId;
   final String title;
   final String content;
 
-  const QuestionUpdateEvent({required this.id,required this.uId,required this.title,required this.content});
+  const QuestionUpdateEvent({ this.id,required this.uId,required this.title,required this.content});
   
 
 

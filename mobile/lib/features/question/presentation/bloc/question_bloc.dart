@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:mobile/core/core.dart';
 import 'package:mobile/core/utils/functions.dart';
 import 'package:mobile/features/question/domain/domain.dart';
 

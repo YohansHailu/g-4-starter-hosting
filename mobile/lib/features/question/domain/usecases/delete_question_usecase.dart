@@ -1,6 +1,5 @@
 
 import 'package:dartz/dartz.dart';
-import 'package:mobile/features/question/domain/entities/entities.dart';
 import 'package:mobile/features/question/domain/repositories/repositories.dart';
 import '../../../../core/core.dart';
 

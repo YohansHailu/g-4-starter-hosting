@@ -91,7 +91,7 @@ class RemoteQuestionDataSourceImp implements RemoteQuestionDataSource {
   Future<void> deleteQuestion({required String id})async {
     String token = "";// User token
 try {
-     final response = await client.delete(
+      await client.delete(
         Uri.parse('$updateQuestionApiLink/$id'),
        
         headers: {

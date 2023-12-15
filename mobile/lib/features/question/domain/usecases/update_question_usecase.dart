@@ -24,11 +24,11 @@ class UpdateQuestionUsecase extends UseCase<void,UpdateQuestionParameter>{
 class UpdateQuestionParameter{
   String title;
   String content;
-  final String id;
+  final String? id;
   final String uId;
 
   UpdateQuestionParameter({
-    required this.id,
+     this.id,
     required this.uId,
     required this.title,
     required this.content,
