@@ -10,6 +10,10 @@ namespace Application.Profiles
          public MappingProfile()
          {
             CreateMap<Rating, RatingDto>().ReverseMap();
+            CreateMap<Comment, LeaveCommentDTO>().ReverseMap();
+            CreateMap<Comment, ReplyToCommentDTO>().ReverseMap();
+            CreateMap<Comment, UpdateCommentDTO>().ReverseMap();
+            CreateMap<Comment, CommentDTO>().ReverseMap();
 
          }
     }
