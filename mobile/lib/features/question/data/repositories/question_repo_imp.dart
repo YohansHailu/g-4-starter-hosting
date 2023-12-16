@@ -25,16 +25,28 @@ class QuestionRepositoryImp implements QuestionRepository{
   
  
   @override
-  Future<Either<Failure, bool>> deleteQuestion(String id) {
+  Future<Either<Failure, bool>> deleteQuestion(String id)async {
+   try{
+
+    final remotedata=await remoteQuestionDataSource.deleteQuestion(id: id);
+    return Right(remotedata);
+}on ServerException {
+      return Left(ServerFailure());
+    }
    
    
-    throw UnimplementedError();
   }
   
   @override
-  Future<Either<Failure, Question>> getQuestion(String id) {
+  Future<Either<Failure, Question>> getQuestion(String id) async{
 
+try{
 
+    final remotedata=await remoteQuestionDataSource.getQuestion(id: id);
+    return Right(remotedata);
+}on ServerException {
+      return Left(ServerFailure());
+    }
    
     throw UnimplementedError();
   }
@@ -55,7 +67,7 @@ class QuestionRepositoryImp implements QuestionRepository{
   
   @override
   Future<Either<Failure, List<Question>>> getQuestions() {
-    // TODO: implement getQuestions
+    
     throw UnimplementedError();
   }
 }

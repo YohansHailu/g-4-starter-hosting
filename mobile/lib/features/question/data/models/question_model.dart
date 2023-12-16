@@ -2,10 +2,8 @@ import 'package:mobile/features/question/domain/domain.dart';
 
 class QuestionModel extends Question{
 
-  final String? id;
-  final String? uId;
   
-  QuestionModel({this.id,this.uId, required super.title, required super.content});
+  const QuestionModel({  super.id,super.uId, required super.title, required super.content});
 
 
   factory QuestionModel.fromJson(Map<String, dynamic> json) {

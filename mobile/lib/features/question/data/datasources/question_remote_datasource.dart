@@ -12,7 +12,7 @@ abstract class RemoteQuestionDataSource {
   Future<QuestionModel> insertQuestion({required uId,required String title, required String content});
   Future<Question> getQuestion({required String id});
   Future<Question> updateQuestion({required id,required uId,required String title, required String content});
-  Future<void> deleteQuestion({required String id});
+  Future<bool> deleteQuestion({required String id});
 
 }
 
@@ -88,7 +88,7 @@ class RemoteQuestionDataSourceImp implements RemoteQuestionDataSource {
   }
 
   @override
-  Future<void> deleteQuestion({required String id})async {
+  Future<bool> deleteQuestion({required String id})async {
     String token = "";// User token
 try {
       await client.delete(
@@ -99,6 +99,8 @@ try {
            "Authorization": "Bearer ${token.toString()}"
         },
       );
+
+      return true;
 
      
     } catch (e) {
