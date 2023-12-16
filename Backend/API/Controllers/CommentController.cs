@@ -75,7 +75,7 @@ namespace Web.Controllers
 
             
             return comments.Count != 0
-                ? Ok(new { Comments = comments.Select(comment => new { Comment = comment }) })  // Serializing each comment to JSON
+                ? Ok(new { Comments = comments.Select(comment => comment ) })  // Serializing each comment to JSON
                 : NotFound(new { Message = "Comments not found" });
         }
 
@@ -87,7 +87,7 @@ namespace Web.Controllers
 
             
             return comments.Count != 0
-                ? Ok(new { Comments = comments.Select(comment => new { Comment = comment }) })  // Serializing each comment to JSON
+                ? Ok(new { RepliedComments = comments.Select(comment => comment ) })  // Serializing each comment to JSON
                 : NotFound(new { Message = "Replied Comments not found" });
         }
     }

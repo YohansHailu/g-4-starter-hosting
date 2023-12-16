@@ -36,6 +36,38 @@ namespace Persistence.Repositories
                 .ToListAsync();
         }
 
+
+        public async Task DeleteCommentAndReplies(Guid commentId)
+            {
+                var commentToDelete = await _dbContext.Comments
+                    .Include(c => c.RepliedComments)
+                    .FirstOrDefaultAsync(c => c.ID == commentId);
+
+                if (commentToDelete != null)
+                {
+                    // Recursive delete of replies
+                    foreach (var reply in commentToDelete.RepliedComments.ToList())
+                    {
+                        await DeleteCommentAndReplies(reply.ID);
+                    }
+
+                    _dbContext.Comments.Remove(commentToDelete);
+                    await _dbContext.SaveChangesAsync();
+                }
+            }
+
+
+       public async Task<Comment> GetRepliedComment(Guid ID)
+        {
+            return await _dbContext.Comments
+                .Where(c => c.ID == ID)
+                .Include(c => c.Author)
+                .Include(c => c.ParentComment)
+                .FirstOrDefaultAsync();
+        }
+
+
+
         public async Task<Comment> ReplyToComment(Comment replyToCommentDTO)
         {
             // Assuming the DTO has necessary information for creating a reply comment
@@ -48,13 +80,17 @@ namespace Persistence.Repositories
                 UpdatedAt = DateTime.UtcNow, // Set the update timestamp
                 AuthorID = replyToCommentDTO.AuthorID, // Assuming AuthorID is available in the DTO
                 // Include other properties as needed
+
+                
             };
 
             // Add the reply comment to the database
             var addedComment = await Add(replyComment);
 
+            var RepliedComment = await GetRepliedComment(addedComment.ID);
+
             // Return the added comment
-            return addedComment;
+            return RepliedComment;
         }
     }
 }

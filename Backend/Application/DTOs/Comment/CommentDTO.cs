@@ -2,7 +2,7 @@ namespace Application.DTOs.Comment
 {
    public class CommentDTO
 {
-    public Guid CommentID { get; set; }
+    public Guid ID { get; set; }
     public Guid ArticleID { get; set; }
     public string Content { get; set; }
     public Guid? ParentCommentID { get; set; }

@@ -23,7 +23,7 @@ namespace Application.Features.Comments.Handlers.Commands
         {
             var response = new BaseCommandResponse();
             
-            Comment comment = await _commentRepository.GetById(request.DeleteCommentDTO.ID);
+            Comment comment = await _commentRepository.Get(request.DeleteCommentDTO.ID);
 
             // Assume the repository method for deleting a comment returns a boolean indicating success
             
@@ -31,7 +31,7 @@ namespace Application.Features.Comments.Handlers.Commands
             if (comment != null)
 
             {
-                await _commentRepository.Delete(comment);
+                await _commentRepository.DeleteCommentAndReplies(request.DeleteCommentDTO.ID);
                 response.Success = true;
                 response.Message = "Comment deleted successfully";
             }

@@ -3,7 +3,7 @@ using Domain.Common;
 
 namespace Domain;
 
-public class Comment : BaseEntity
+public class Comment : BaseDomainEntity
     {
         public string Content { get; set; }
         public Guid? ArticleID { get; set; }

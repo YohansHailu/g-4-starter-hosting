@@ -1,6 +1,7 @@
 using Application.DTOs.Rating;
 using AutoMapper;
 using Domain;
+using Application.DTOs.Comment;
 
 namespace Application.Profiles
 {

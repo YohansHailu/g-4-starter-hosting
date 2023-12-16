@@ -15,5 +15,6 @@ namespace Application.Contracts
         Task<IEnumerable<Comment>> GetCommentsByArticleID(Guid articleID);
         Task<IEnumerable<Comment>> GetRepliedComments(Guid parentCommentID);
         Task<Comment> ReplyToComment(Comment replyToCommentDTO);
+        Task DeleteCommentAndReplies(Guid commentId);
     }
 }
