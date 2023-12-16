@@ -53,7 +53,7 @@ namespace Web.Controllers
 
             return comment != null
         ? Ok(new { Comment = comment })  // Serializing the comment to JSON
-        : BadRequest(new { Message = "Failed to create reply comment" });
+        : BadRequest(new { Message = "Failed to update comment" });
         }
 
         [HttpDelete("delete")]
