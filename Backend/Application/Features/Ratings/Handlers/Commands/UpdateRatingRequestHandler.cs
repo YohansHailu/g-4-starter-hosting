@@ -16,8 +16,6 @@ namespace Application.Features.Ratings.Handlers.Commands
             _mapper = mapper;
         }
 
-
-
         public async Task<Unit> Handle(UpdateRatingCommand request, CancellationToken cancellationToken)
         {
     

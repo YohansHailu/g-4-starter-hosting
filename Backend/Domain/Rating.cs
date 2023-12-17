@@ -1,15 +1,14 @@
 using System.ComponentModel.DataAnnotations;
+using Domain.Common;
 
 namespace Domain
 {
-    public class Rating
+    public class Rating : BaseEntity
     {
-        public int Id {get; set;}
-        public string UserId { get; set; } = "";
+        public Guid UserId { get; set; }
         [Required]
-        public string BlogId { get; set; } = "";
+        public Guid BlogId { get; set; }
         [Required]
-        public int RatingValue {get; set; }
-        public DateTime Timestamp { get; set; }
+        public int RatingValue { get; set; }
     }
 }
