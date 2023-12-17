@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Application.Features.Ratings.Handlers.Commands
 {
-    public class CreateRatingRequestHandler : IRequestHandler<CreateRatingCommand, Unit>
+    public class CreateRatingRequestHandler : IRequestHandler<CreateRatingCommand, Rating>
     {
         private readonly IRatingRepository _ratingRepository;
         private readonly IMapper _mapper;
@@ -17,11 +17,10 @@ namespace Application.Features.Ratings.Handlers.Commands
             _mapper = mapper;
         }
 
-        public async Task<Unit> Handle(CreateRatingCommand request, CancellationToken cancellationToken)
+        public async Task<Rating> Handle(CreateRatingCommand request, CancellationToken cancellationToken)
         {
             var rating = _mapper.Map<Rating>(request.CreateRatingDto);
-            rating = await _ratingRepository.Add(rating);
-            return Unit.Value;
+            return await _ratingRepository.Add(rating);
         }
     }
 }

@@ -3,11 +3,12 @@ using Application.DTOs.Rating;
 using Application.Exceptions;
 using Application.Features.Ratings.Requests.Queries;
 using AutoMapper;
+using Domain;
 using MediatR;
 
 namespace Application.Features.Ratings.Handlers.Queries
 {
-    public class GetRatingDetailRequestHandler : IRequestHandler<GetRatingDetailRequest, RatingDto>
+    public class GetRatingDetailRequestHandler : IRequestHandler<GetRatingDetailRequest, Rating>
     {
         private readonly IRatingRepository _ratingRepository;
         private readonly IMapper _mapper;
@@ -18,19 +19,14 @@ namespace Application.Features.Ratings.Handlers.Queries
             _mapper = mapper;
         }
 
-        public async Task<RatingDto> Handle(GetRatingDetailRequest request, CancellationToken cancellationToken)
+        public async Task<Rating> Handle(GetRatingDetailRequest request, CancellationToken cancellationToken)
         {
             var rating = await _ratingRepository.Get(request.Id);
             if (rating == null)
                 throw new NotFoundException(nameof(Domain.Rating), request.Id);
-            return _mapper.Map<RatingDto>(rating);
+            return rating;
 
         }
         
     }
-
-
-
-
-    
 }
