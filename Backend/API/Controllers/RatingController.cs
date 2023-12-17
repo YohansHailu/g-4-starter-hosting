@@ -50,7 +50,7 @@ public class RatingController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<ActionResult> Put([FromBody] RatingDto Rating)
+    public async Task<ActionResult> Put([FromBody] UpdateRatingDto Rating)
     {
         var command = new UpdateRatingCommand { UpdateRatingDto = Rating };
         await _mediator.Send(command);
@@ -59,9 +59,9 @@ public class RatingController : ControllerBase
 
     // DELETE api/<RatingController>/5
     [HttpDelete("{id}")]
-    public async Task<ActionResult> Delete(RatingDto Rating)
+    public async Task<ActionResult> Delete(Guid id)
     {
-        var command = new DeleteRatingCommand { Id = Rating.Id };
+        var command = new DeleteRatingCommand { Id = id};
         await _mediator.Send(command);
         return NoContent();
     }

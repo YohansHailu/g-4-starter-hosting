@@ -7,8 +7,8 @@ namespace Domain
     {
         public Guid UserId { get; set; }
         [Required]
-        public Guid BlogId { get; set; } 
+        public Guid BlogId { get; set; }
         [Required]
-        public int RatingValue {get; set; }
+        public int RatingValue { get; set; }
     }
 }
