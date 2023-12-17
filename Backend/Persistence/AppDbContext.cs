@@ -20,7 +20,7 @@ public class AppDbContext : IdentityDbContext<User>
     
     public DbSet<User> Users { get; set; }
     public DbSet<Blog> Blogs { get; set; }
-    public DbSet<Rating> Rattings { get; set; }
+    public DbSet<Rating> Ratings { get; set; }
     public DbSet<Comment> Comments { get; set; }
 
 }
