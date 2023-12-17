@@ -1,6 +1,7 @@
 using Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 namespace Persistence;
 
 public class AppDbContext : IdentityDbContext<User>
@@ -12,10 +13,15 @@ public class AppDbContext : IdentityDbContext<User>
     {
         
     }
+
+ 
+
+
     
     public DbSet<User> Users { get; set; }
     public DbSet<Blog> Blogs { get; set; }
     public DbSet<Rating> Rattings { get; set; }
+    public DbSet<Comment> Comments { get; set; }
 
 }
 

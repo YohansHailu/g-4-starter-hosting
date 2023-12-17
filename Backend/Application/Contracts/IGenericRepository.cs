@@ -9,5 +9,5 @@ public interface IGenericRepository<T> where T : class
     Task<bool> Exists(Guid id);
     Task<T?> Get(Guid id);
     Task<IReadOnlyList<T>> GetAll();
-    Task Update(T entity);
+    Task<T> Update(T entity);
 }
