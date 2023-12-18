@@ -19,13 +19,10 @@ public class CreateBlogCommandHandler : IRequestHandler<CreateBlogCommand, BlogD
     
     public async Task<BlogDto> Handle(CreateBlogCommand request, CancellationToken cancellationToken)
     {
-        Console.WriteLine("inside the handler");
         var blog = _mapper.Map<Domain.Blog>(request);
 
         await _blogRepository.Add(blog);
-  
-        Console.WriteLine("after the handler");
-    
+        
         var blogDto = _mapper.Map<BlogDto>(blog);
         
         return blogDto;
