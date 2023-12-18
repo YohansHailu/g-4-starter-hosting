@@ -1,2 +1,2 @@
-// export 'question_repository.dart';
+export 'comment_repository.dart';
 

@@ -1,22 +1,24 @@
 import 'package:equatable/equatable.dart';
 
 class Question extends Equatable {
-  String title;
-  String content;
-  String id;
-  String userId;
+  final String? id;
+  final String? uId;
+  final String title;
+  final String content;
 
-  Question(
-      {required this.title,
+
+  const Question(
+      {
+        this.id ,
+        this.uId,
+        required this.title,
       required this.content,
-      required this.id,
-      required this.userId});
+      });
       
 
       
-        @override
-        // TODO: implement props
-        List<Object?> get props => throw UnimplementedError();
+ @override
+ List<Object?> get props => [id,uId,title, content];
 
 
 }

@@ -3,9 +3,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile/core/constants/app_colors.dart';
 import 'package:mobile/core/constants/app_style.dart';
 
-class QuestionDetailPage extends StatelessWidget {
+class QuestionDetailPage extends StatefulWidget {
   const QuestionDetailPage({super.key});
 
+  @override
+  State<QuestionDetailPage> createState() => _QuestionDetailPageState();
+}
+
+class _QuestionDetailPageState extends State<QuestionDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,13 +29,13 @@ class QuestionDetailPage extends StatelessWidget {
               ),
               actions: [
                 IconButton(
-                  icon: Icon(Icons.edit, color: Colors.white),
+                  icon: const Icon(Icons.edit, color: Colors.white),
                   onPressed: () {
                     // This will go to the bookmarked screen
                   },
                 ),
                 IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.delete,
                     color: Colors.white,
                   ),
@@ -43,7 +48,7 @@ class QuestionDetailPage extends StatelessWidget {
             SliverList(
               delegate: SliverChildListDelegate([
                 Container(
-                  margin: EdgeInsets.only(top: 15),
+                  margin: const EdgeInsets.only(top: 15),
                   child: Text(
                     "What is the best way to manage state in flutter?",
                     style: mainFont.copyWith(
@@ -55,7 +60,7 @@ class QuestionDetailPage extends StatelessWidget {
                 ),
                 Container(
                   margin: EdgeInsets.all(15),
-                  child: Text(
+                  child:  Text(
                     """Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa in nibh nunc a, ac risus, molestie. Sit scelerisque leo egestas nunc, morbi vel platea justo, ut. Odio integer quis diam purus felis, fermentum, consectetur. Nascetur purus pretium hendrerit velit neque enim. Mauris eget sem mattis elementum leo eget. Ipsum massa metus, imperdiet diam pellentesque ut. 
                     Turpis consectetur elementum a quis et venenatis blandit viverra. Pretium fusce faucibus tortor, amet, tellus senectus gravida nulla. Adipiscing ridiculus elementum amet, at pharetra ac. Arcu augue in amet elementum euismod elementum sit et urna. Neque, feugiat leo viverra cursus condimentum blandit. Volutpat tellus tristique sit sit lobortis feugiat egestas faucibus. Nibh potenti in morbi morbi non.
                     Turpis consectetur elementum a quis et venenatis blandit viverra. Pretium fusce faucibus tortor, amet, tellus senectus gravida nulla. Adipiscing ridiculus elementum amet, at pharetra ac. Arcu augue in amet elementum euismod elementum sit et urna. Neque, feugiat leo viverra cursus condimentum blandit. Volutpat tellus tristique sit sit lobortis feugiat egestas faucibus. Nibh potenti in morbi morbi non.
@@ -65,7 +70,7 @@ class QuestionDetailPage extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.all(15),
+                  margin:const  EdgeInsets.all(15),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -73,7 +78,7 @@ class QuestionDetailPage extends StatelessWidget {
                         'Sort by ',
                         style: mainFont,
                       ),
-                      SizedBox(
+                     const  SizedBox(
                         width: 8,
                       ),
                       DropdownButton<String>(
@@ -133,9 +138,9 @@ class QuestionDetailPage extends StatelessWidget {
             right: 1,
             child: GestureDetector(
                 onTap: () {},
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 6),
-                  decoration: BoxDecoration(
+                child:  Container(
+                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 6),
+                  decoration: const BoxDecoration(
                       color: primary,
                       borderRadius:
                           BorderRadius.only(topLeft: Radius.circular(20))),

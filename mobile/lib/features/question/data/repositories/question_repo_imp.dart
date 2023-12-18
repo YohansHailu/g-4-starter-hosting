@@ -1,30 +1,73 @@
 import 'package:dartz/dartz.dart';
+import 'package:mobile/features/question/data/datasources/question_remote_datasource.dart';
+import 'package:mobile/features/question/data/models/question_model.dart';
 import 'package:mobile/features/question/domain/domain.dart';
 
 import '../../../../core/core.dart';
 
 class QuestionRepositoryImp implements QuestionRepository{
+  final RemoteQuestionDataSource remoteQuestionDataSource;
+
+  QuestionRepositoryImp({required this.remoteQuestionDataSource});
   @override
-  Future<Either<Failure, bool>> insertQuestion(String title, String content) {
-     // TODO: implement DeleteQuestion
+  Future<Either<Failure, QuestionModel>> insertQuestion({required String content, required String title, required dynamic uId}) async{
+
+
+ try {
+   final remotedata= await remoteQuestionDataSource.insertQuestion(title: title, content: content,uId: uId);
+     
+      return Right(remotedata);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+   
+  }
+  
+ 
+  @override
+  Future<Either<Failure, bool>> deleteQuestion(String id)async {
+   try{
+
+    final remotedata=await remoteQuestionDataSource.deleteQuestion(id: id);
+    return Right(remotedata);
+}on ServerException {
+      return Left(ServerFailure());
+    }
+   
+   
+  }
+  
+  @override
+  Future<Either<Failure, Question>> getQuestion(String id) async{
+
+try{
+
+    final remotedata=await remoteQuestionDataSource.getQuestion(id: id);
+    return Right(remotedata);
+}on ServerException {
+      return Left(ServerFailure());
+    }
+   
     throw UnimplementedError();
   }
   
   @override
-  Future<Either<Failure, Question>> DeleteQuestion(String id) {
-    // TODO: implement DeleteQuestion
-    throw UnimplementedError();
-  }
-  
-  @override
-  Future<Either<Failure, Question>> EditQuestion(String id) {
-    // TODO: implement EditQuestion
-    throw UnimplementedError();
+  Future<Either<Failure, Question>> updateQuestion(Question question) async{
+   
+   try {
+       final remotedata= await remoteQuestionDataSource.updateQuestion(id: question.id,uId: question.uId, title: question.title, content: question.content);
+     
+      return Right(remotedata);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+
+    
   }
   
   @override
   Future<Either<Failure, List<Question>>> getQuestions() {
-    // TODO: implement getQuestions
+    
     throw UnimplementedError();
   }
 }
