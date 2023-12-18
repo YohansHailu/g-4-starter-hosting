@@ -11,7 +11,7 @@ using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebApi.Controllers;
+namespace API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

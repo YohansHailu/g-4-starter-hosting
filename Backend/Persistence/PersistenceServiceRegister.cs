@@ -20,6 +20,7 @@ public static class PersistenceServiceRegister
                 services.AddScoped<IBlogRepository, BlogRepository>();
                 services.AddScoped<IRatingRepository, RatingRepository>();
                 services.AddScoped<ICommentRepository, CommentRepository>();
+                services.AddScoped<IUserProfileRepository, UserProfileRepository>();
 
                 return services;
         }
