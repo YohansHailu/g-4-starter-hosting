@@ -9,6 +9,14 @@ const nextConfig = {
         pathname:
           "/eskalate/image/upload/f_auto,q_auto/v1/a2sv/success-stories/**",
       },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.discordapp.com",
+      },
     ],
   },
 };
