@@ -7,10 +7,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Features.Comments.Requests.Commands;
 using Application.Contracts;
+using Domain;
 
 namespace Application.Features.Comments.Handlers.Commands
 {
-    public class UpdateCommentCommandHandler : IRequestHandler<UpdateCommentCommand, BaseCommandResponse<CommentDTO>>
+    public class UpdateCommentCommandHandler : IRequestHandler<UpdateCommentCommand, BaseCommandResponse<Comment>>
     {
         private readonly ICommentRepository _commentRepository;
         private readonly IMapper _mapper;
@@ -21,9 +22,9 @@ namespace Application.Features.Comments.Handlers.Commands
             _mapper = mapper;
         }
 
-        public async Task<BaseCommandResponse<CommentDTO>> Handle(UpdateCommentCommand request, CancellationToken cancellationToken)
+        public async Task<BaseCommandResponse<Comment>> Handle(UpdateCommentCommand request, CancellationToken cancellationToken)
         {
-            var response = new BaseCommandResponse<CommentDTO>();
+            var response = new BaseCommandResponse<Comment>();
 
             var validator = new UpdateCommentDTOValidator();
             var validationResult = await validator.ValidateAsync(request.UpdateCommentDTO);
@@ -63,7 +64,7 @@ namespace Application.Features.Comments.Handlers.Commands
 
             response.Success = true;
             response.Message = "Comment updated successfully";
-            response.Data = _mapper.Map<CommentDTO>(updatedComment);
+            response.Data = _mapper.Map<Comment>(updatedComment);
 
             return response;
         }

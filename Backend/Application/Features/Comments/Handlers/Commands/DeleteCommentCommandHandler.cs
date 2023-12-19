@@ -1,12 +1,7 @@
 using MediatR;
 using Application.Responses;
-using Domain;
-using Application.DTOs.Comment;
-using System.Threading;
-using System.Threading.Tasks;
 using Application.Features.Comments.Requests.Commands;
 using Application.Contracts;
-using Application.DTOs.Comment.Validators;
 
 namespace Application.Features.Comments.Handlers.Commands
 {

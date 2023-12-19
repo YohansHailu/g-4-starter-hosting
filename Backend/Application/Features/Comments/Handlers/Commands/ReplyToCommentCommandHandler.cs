@@ -11,7 +11,7 @@ using Application.Contracts;
 
 namespace Application.Features.Comments.Handlers.Commands
 {
-    public class ReplyToCommentCommandHandler : IRequestHandler<ReplyToCommentCommand, BaseCommandResponse<CommentDTO>>
+    public class ReplyToCommentCommandHandler : IRequestHandler<ReplyToCommentCommand, BaseCommandResponse<Comment>>
     {
         private readonly ICommentRepository _commentRepository;
         private readonly IMapper _mapper;
@@ -22,9 +22,9 @@ namespace Application.Features.Comments.Handlers.Commands
             _mapper = mapper;
         }
 
-        public async Task<BaseCommandResponse<CommentDTO>> Handle(ReplyToCommentCommand request, CancellationToken cancellationToken)
+        public async Task<BaseCommandResponse<Comment>> Handle(ReplyToCommentCommand request, CancellationToken cancellationToken)
         {
-            var response = new BaseCommandResponse<CommentDTO>();
+            var response = new BaseCommandResponse<Comment>();
 
             var validator = new ReplyToCommentDTOValidator();
             var validationResult = await validator.ValidateAsync(request.ReplyToCommentDTO);
@@ -47,7 +47,7 @@ namespace Application.Features.Comments.Handlers.Commands
 
             response.Success = true;
             response.Message = "Reply comment created successfully";
-            response.Data = _mapper.Map<CommentDTO>(replyComment);
+            response.Data = replyComment;
 
             return response;
         }
