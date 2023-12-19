@@ -3,8 +3,7 @@ using MediatR;
 
 namespace Application.Features.Blog.Commands.CreateBlog;
 
-public class CreateBlogCommand : IRequest<BlogDto>
+public class CreateBlogCommand : IRequest<Domain.Blog>
 {
-    public string Title { get; set; } = null!;
-    public string Content { get; set; } = null!;
+    public BlogDto BlogDto { set; get; }
 }

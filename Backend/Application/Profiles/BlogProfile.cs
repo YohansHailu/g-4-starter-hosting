@@ -14,5 +14,6 @@ public class BlogProfile : Profile
         CreateMap<CreateBlogCommand, Blog>();
         CreateMap<UpdateBlogCommand, Blog>();
         CreateMap<Blog, BlogDetailsDto>();
+        CreateMap<CreateBlogDto, BlogDto>();
     }
 }
