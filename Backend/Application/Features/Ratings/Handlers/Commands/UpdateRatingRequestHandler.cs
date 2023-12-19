@@ -1,11 +1,12 @@
 using Application.Contracts;
 using Application.Features.Ratings.Requests.Commands;
 using AutoMapper;
+using Domain;
 using MediatR;
 
 namespace Application.Features.Ratings.Handlers.Commands
 {
-    public class UpdateRatingRequestHandler : IRequestHandler<UpdateRatingCommand, Unit>
+    public class UpdateRatingRequestHandler : IRequestHandler<UpdateRatingCommand, Rating>
     {
         private readonly IRatingRepository _ratingRepository;
         private readonly IMapper _mapper;
@@ -16,13 +17,18 @@ namespace Application.Features.Ratings.Handlers.Commands
             _mapper = mapper;
         }
 
-        public async Task<Unit> Handle(UpdateRatingCommand request, CancellationToken cancellationToken)
+        public async Task<Rating> Handle(UpdateRatingCommand request, CancellationToken cancellationToken)
         {
     
             var rating = await _ratingRepository.Get(request.UpdateRatingDto.Id);
-            _mapper.Map(request.UpdateRatingDto, rating);
-            await _ratingRepository.Update(rating);
-            return Unit.Value;
+            if (rating == null)
+            {
+                throw new Exception("rating not found");
+            }
+            
+            var updated_rating = _mapper.Map<Rating>(request.UpdateRatingDto);
+            await _ratingRepository.Update(updated_rating);
+            return updated_rating;
         }
 
     }
