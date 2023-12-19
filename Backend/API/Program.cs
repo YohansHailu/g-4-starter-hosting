@@ -4,7 +4,7 @@ using Persistence;
 using Microsoft.AspNetCore.Identity;
 using Domain;
 using Application;
-    
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -33,11 +33,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
-#pragma warning disable ASP0014
+app.MapGet("/", () => "Hello World!");
 app.MapControllers();
 app.Run();
