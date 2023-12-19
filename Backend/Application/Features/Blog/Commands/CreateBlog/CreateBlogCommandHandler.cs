@@ -19,6 +19,11 @@ public class CreateBlogCommandHandler : IRequestHandler<CreateBlogCommand, BlogD
     
     public async Task<BlogDto> Handle(CreateBlogCommand request, CancellationToken cancellationToken)
     {
+        var validator = new CreateBlogCommandValidator();
+        var validationResult = await validator.ValidateAsync(request, cancellationToken);
+        if (!validationResult.IsValid)
+            throw new BadRequestException("Invalid Blog Request", validationResult);
+
         var blog = _mapper.Map<Domain.Blog>(request);
 
         await _blogRepository.Add(blog);

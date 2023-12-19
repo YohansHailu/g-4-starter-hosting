@@ -1,5 +1,6 @@
 using Application.Contracts;
 using Application.DTOs.Blog;
+using Application.Exceptions;
 using AutoMapper;
 using MediatR;
 
@@ -18,6 +19,11 @@ public class UpdateBlogCommandHandler : IRequestHandler<UpdateBlogCommand, BlogD
     
     public async Task<BlogDto> Handle(UpdateBlogCommand request, CancellationToken cancellationToken)
     {
+        var validator = new UpdateBlogCommandValidator();
+        var validationResult = await validator.ValidateAsync(request, cancellationToken);
+        if (!validationResult.IsValid)
+            throw new BadRequestException("Invalid Blog Request", validationResult);
+
         var blog = _mapper.Map<Domain.Blog>(request);
 
         await _blogRepository.Update(blog);
