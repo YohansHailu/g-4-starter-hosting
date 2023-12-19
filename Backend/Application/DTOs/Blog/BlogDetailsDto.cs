@@ -7,6 +7,7 @@ namespace Application.DTOs.Blog
     public class BlogDetailsDto
     {
         public Guid id { get; set; }
+        public Guid? AutherId { set; get; }
         public string Title { get; set; } = null!;
         public string Content { get; set; } = null!;
         public DateTime CreatedAt { get; set; }

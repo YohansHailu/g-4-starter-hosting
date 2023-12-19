@@ -1,10 +1,11 @@
 
 using Application.Contracts;
+using Application.DTOs.Blog;
 using FluentValidation;
 
 namespace Application.Features.Blog.Commands.CreateBlog;
 
-public class CreateBlogCommandValidator : AbstractValidator<CreateBlogCommand>
+public class CreateBlogCommandValidator : AbstractValidator<BlogDto>
 {
     public CreateBlogCommandValidator()
     {

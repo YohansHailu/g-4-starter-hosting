@@ -28,6 +28,9 @@ namespace Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<Guid?>("AutherId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("Content")
                         .HasColumnType("text");
 
