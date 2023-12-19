@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace API.Controllers.Dto;
+namespace Application.DTOs.userAuthDto;
 public class RegisterDto
 {
     public string name { get; set; }

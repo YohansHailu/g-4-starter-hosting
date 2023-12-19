@@ -1,4 +1,4 @@
-namespace API.Controllers.Dto;
+namespace Application.DTOs.userAuthDto;
 
 public class LoginDto
 {
