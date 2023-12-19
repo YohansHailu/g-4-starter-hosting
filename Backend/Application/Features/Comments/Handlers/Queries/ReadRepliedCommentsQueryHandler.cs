@@ -9,11 +9,12 @@ using Application.Contracts;
 using Application.Features.Comments.Requests.Queries;
 using Application.DTOs.Comment;
 using AutoMapper;
+using Domain;
 
 
 namespace Application.Features.Comments.Handlers.Queries
 {
-    public class ReadRepliedCommentsQueryHandler : IRequestHandler<ReadRepliedCommentsQuery, List<CommentDTO>>
+    public class ReadRepliedCommentsQueryHandler : IRequestHandler<ReadRepliedCommentsQuery, List<Comment>>
     {
         private readonly ICommentRepository _commentRepository;
         private readonly IMapper _mapper;
@@ -25,15 +26,14 @@ namespace Application.Features.Comments.Handlers.Queries
             _mapper = mapper;
         }
 
-        public async Task<List<CommentDTO>>  Handle(ReadRepliedCommentsQuery request, CancellationToken cancellationToken)
+        public async Task<List<Comment>>  Handle(ReadRepliedCommentsQuery request, CancellationToken cancellationToken)
         {
             
 
             var repliedComments = await _commentRepository.GetRepliedComments(request.ParentCommentID);
 
-            
 
-            return _mapper.Map<List<CommentDTO>>(repliedComments);
+            return repliedComments.ToList();
         }
     }
 }

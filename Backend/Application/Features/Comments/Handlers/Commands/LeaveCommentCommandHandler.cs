@@ -12,7 +12,7 @@ using Application.Contracts;
 
 namespace Application.Features.Comments.Handlers.Commands
 {
-    public class LeaveCommentCommandHandler : IRequestHandler<LeaveCommentCommand, BaseCommandResponse>
+    public class LeaveCommentCommandHandler : IRequestHandler<LeaveCommentCommand, BaseCommandResponse<Guid>>
     {
         private readonly IMapper _mapper;
         private readonly ICommentRepository _commentRepository;
@@ -23,19 +23,26 @@ namespace Application.Features.Comments.Handlers.Commands
             _mapper = mapper;
         }
 
-        public async Task<BaseCommandResponse> Handle(LeaveCommentCommand request, CancellationToken cancellationToken)
+        public async Task<BaseCommandResponse<Guid>> Handle(LeaveCommentCommand request, CancellationToken cancellationToken)
         {
-            var response = new BaseCommandResponse();
+            var response = new BaseCommandResponse<Guid>();
 
             var validator = new LeaveCommentDTOValidator();
             var validationResult = await validator.ValidateAsync(request.LeaveCommentDTO);
 
             if (!validationResult.IsValid)
             {
-                return null;
+                response.Success = false;
+                response.Message = "Validation failed";
+                response.Errors = validationResult.Errors.Select(error => error.ErrorMessage).ToList();
+                return response;
             }
 
             var comment = _mapper.Map<Comment>(request.LeaveCommentDTO);
+
+            // Assign comment's AuthorId based on the request
+            comment.AuthorID = request.AuthorID;
+
             comment = await _commentRepository.Add(comment);
 
             response.Success = true;

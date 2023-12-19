@@ -11,7 +11,7 @@ using Application.Contracts;
 
 namespace Application.Features.Comments.Handlers.Commands
 {
-    public class ReplyToCommentCommandHandler : IRequestHandler<ReplyToCommentCommand, CommentDTO>
+    public class ReplyToCommentCommandHandler : IRequestHandler<ReplyToCommentCommand, BaseCommandResponse<Comment>>
     {
         private readonly ICommentRepository _commentRepository;
         private readonly IMapper _mapper;
@@ -22,24 +22,34 @@ namespace Application.Features.Comments.Handlers.Commands
             _mapper = mapper;
         }
 
-        public async Task<CommentDTO> Handle(ReplyToCommentCommand request, CancellationToken cancellationToken)
+        public async Task<BaseCommandResponse<Comment>> Handle(ReplyToCommentCommand request, CancellationToken cancellationToken)
         {
+            var response = new BaseCommandResponse<Comment>();
 
             var validator = new ReplyToCommentDTOValidator();
             var validationResult = await validator.ValidateAsync(request.ReplyToCommentDTO);
 
             if (!validationResult.IsValid)
             {
-                return null;
+                response.Success = false;
+                response.Message = "Validation failed";
+                response.Errors = validationResult.Errors.Select(error => error.ErrorMessage).ToList();
+                return response;
             }
 
             var comment = _mapper.Map<Comment>(request.ReplyToCommentDTO);
-            // Assume the repository method for replying to a comment returns the created reply comment
+            comment.AuthorID = request.AuthorID;
+
+            // Assuming the repository method for replying to a comment returns the created reply comment
             var replyComment = await _commentRepository.ReplyToComment(comment);
 
             
 
-            return _mapper.Map<CommentDTO>(replyComment);
+            response.Success = true;
+            response.Message = "Reply comment created successfully";
+            response.Data = replyComment;
+
+            return response;
         }
     }
 }

@@ -105,14 +105,15 @@ public class UserController : Controller
     [HttpGet("current-user")]
     public async Task<IActionResult> GetCurrentUser()
     {
-        
+
         var user = await _userManager.Users
         .FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Email));
         if (user == null)
         {
             return Unauthorized();
         }
-
+        
+        
         return Ok(user);
     }
 }

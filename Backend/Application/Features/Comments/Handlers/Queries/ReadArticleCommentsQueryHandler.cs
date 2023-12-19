@@ -7,11 +7,12 @@ using Application.Contracts;
 using Application.Features.Comments.Requests.Queries;
 using Application.DTOs.Comment;
 using AutoMapper;
+using Domain;
 
 
 namespace Application.Features.Comments.Handlers.Queries
 {
-    public class ReadArticleCommentsQueryHandler : IRequestHandler<ReadArticleCommentsQuery, List<CommentDTO>>
+    public class ReadArticleCommentsQueryHandler : IRequestHandler<ReadArticleCommentsQuery, List<Comment>>
     {
         private readonly ICommentRepository _commentRepository;
         private readonly IMapper _mapper;
@@ -22,7 +23,7 @@ namespace Application.Features.Comments.Handlers.Queries
             _mapper = mapper;
         }
 
-        public async Task<List<CommentDTO>>  Handle(ReadArticleCommentsQuery request, CancellationToken cancellationToken)
+        public async Task<List<Comment>>  Handle(ReadArticleCommentsQuery request, CancellationToken cancellationToken)
         {
             
 
@@ -30,7 +31,7 @@ namespace Application.Features.Comments.Handlers.Queries
 
             
 
-            return _mapper.Map<List<CommentDTO>>(comments);
+            return comments.ToList();
         }
     }
 }
