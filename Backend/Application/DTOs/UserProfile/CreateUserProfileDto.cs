@@ -1,9 +1,7 @@
 namespace Application.DTOs.UserProfile;
 
-public class UserProfileDto
+public class CreateUserProfileDto
 {
-    
-    public Guid UserId { get; set; }
     
     public DateTime DateOfBirth { get; set; }
 

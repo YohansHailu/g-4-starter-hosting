@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using API.Services;
 using Application.DTOs.Comment;
 using Application.Features.Comments.Requests.Commands;
 using Application.Features.Comments.Requests.Queries;
@@ -18,19 +19,13 @@ namespace API.Controllers
     {
         private readonly IMediator _mediator;
 
-        private readonly UserManager<User> _userManager;
-        public CommentController(IMediator mediator, UserManager<User> userManager)
+        private readonly IAuthenticatedUserService _userService;
+        public CommentController(IMediator mediator, UserManager<User> userManager, IAuthenticatedUserService userService)
         {
             _mediator = mediator;
-            _userManager = userManager;
+            _userService = userService;
         }
 
-        public Guid CurrentUserId()
-        {
-                var user = _userManager.Users
-                .FirstOrDefault(x => x.Email == User.FindFirstValue(ClaimTypes.Email));
-                return Guid.Parse(user.Id);
-        }
 
         [HttpPost("leave")]
         [Authorize]
@@ -44,7 +39,7 @@ namespace API.Controllers
                 var command = new LeaveCommentCommand
                 {
                     LeaveCommentDTO = leaveCommentDto,
-                    AuthorID = CurrentUserId()
+                    AuthorID = _userService.GetUserId(User)
                 };
 
                 var response = await _mediator.Send(command);
@@ -75,7 +70,7 @@ namespace API.Controllers
                 var command = new ReplyToCommentCommand
                 {
                     ReplyToCommentDTO = replyToCommentDto,
-                    AuthorID = CurrentUserId()
+                    AuthorID = _userService.GetUserId(User)
                 };
 
                 var response = await _mediator.Send(command);
@@ -106,7 +101,7 @@ namespace API.Controllers
                 var command = new UpdateCommentCommand
                 {
                     UpdateCommentDTO = updateCommentDto,
-                    AuthorID = CurrentUserId()
+                    AuthorID = _userService.GetUserId(User)
                 };
 
                 var response = await _mediator.Send(command);
@@ -137,7 +132,7 @@ namespace API.Controllers
                 var command = new DeleteCommentCommand
                 {
                     DeleteCommentDTO = deleteCommentDto,
-                    AuthorID = CurrentUserId()
+                    AuthorID = _userService.GetUserId(User)
                 };
 
                 var response = await _mediator.Send(command);

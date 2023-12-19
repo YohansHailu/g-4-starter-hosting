@@ -1,4 +1,5 @@
 using API.Extensions;
+using API.Services;
 using Persistence;
 using Microsoft.AspNetCore.Identity;
 using Domain;
@@ -20,6 +21,8 @@ builder.Services.AddAuthenticationHandlerService(builder.Configuration);
 
 // adding UserManager Service
 builder.Services.AddIdentityCoreService();
+
+builder.Services.AddScoped<IAuthenticatedUserService, AuthenticatedUserService>();
 
 
 var app = builder.Build();
