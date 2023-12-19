@@ -10,7 +10,7 @@ using Application.DTOs.Comment.Validators;
 
 namespace Application.Features.Comments.Handlers.Commands
 {
-    public class DeleteCommentCommandHandler : IRequestHandler<DeleteCommentCommand, BaseCommandResponse>
+    public class DeleteCommentCommandHandler : IRequestHandler<DeleteCommentCommand, BaseCommandResponse<Guid>>
     {
         private readonly ICommentRepository _commentRepository;
 
@@ -19,26 +19,31 @@ namespace Application.Features.Comments.Handlers.Commands
             _commentRepository = commentRepository;
         }
 
-        public async Task<BaseCommandResponse> Handle(DeleteCommentCommand request, CancellationToken cancellationToken)
+        public async Task<BaseCommandResponse<Guid>> Handle(DeleteCommentCommand request, CancellationToken cancellationToken)
         {
-            var response = new BaseCommandResponse();
-            
-            Comment comment = await _commentRepository.Get(request.DeleteCommentDTO.ID);
+            var response = new BaseCommandResponse<Guid>();
 
-            // Assume the repository method for deleting a comment returns a boolean indicating success
-            
+            var comment = await _commentRepository.Get(request.DeleteCommentDTO.ID);
 
             if (comment != null)
-
             {
-                await _commentRepository.DeleteCommentAndReplies(request.DeleteCommentDTO.ID);
-                response.Success = true;
-                response.Message = "Comment deleted successfully";
+                // Check if the provided AuthorID matches the AuthorID of the comment
+                if (comment.AuthorID == request.AuthorID)
+                {
+                    await _commentRepository.DeleteCommentAndReplies(request.DeleteCommentDTO.ID);
+                    response.Success = true;
+                    response.Message = "Comment deleted successfully";
+                }
+                else
+                {
+                    response.Success = false;
+                    response.Message = "Authorization failed: AuthorID does not match.";
+                }
             }
             else
             {
                 response.Success = false;
-                response.Message = "Comment deletion failed";
+                response.Message = "Comment not found. Deletion failed.";
             }
 
             return response;

@@ -10,7 +10,7 @@ using Application.Contracts;
 
 namespace Application.Features.Comments.Handlers.Commands
 {
-    public class UpdateCommentCommandHandler : IRequestHandler<UpdateCommentCommand, CommentDTO>
+    public class UpdateCommentCommandHandler : IRequestHandler<UpdateCommentCommand, BaseCommandResponse<CommentDTO>>
     {
         private readonly ICommentRepository _commentRepository;
         private readonly IMapper _mapper;
@@ -21,29 +21,51 @@ namespace Application.Features.Comments.Handlers.Commands
             _mapper = mapper;
         }
 
-        public async Task<CommentDTO> Handle(UpdateCommentCommand request, CancellationToken cancellationToken)
+        public async Task<BaseCommandResponse<CommentDTO>> Handle(UpdateCommentCommand request, CancellationToken cancellationToken)
         {
-            
+            var response = new BaseCommandResponse<CommentDTO>();
 
             var validator = new UpdateCommentDTOValidator();
             var validationResult = await validator.ValidateAsync(request.UpdateCommentDTO);
 
             if (!validationResult.IsValid)
             {
-                
-                return null;
-                
+                response.Success = false;
+                response.Message = "Validation failed";
+                response.Errors = validationResult.Errors.Select(error => error.ErrorMessage).ToList();
+                return response;
             }
 
             // Map UpdateCommentDTO to Domain.Comment
             var commentToUpdate = _mapper.Map<Domain.Comment>(request.UpdateCommentDTO);
 
+            // Get the existing comment from the repository
+            var existingComment = await _commentRepository.Get(commentToUpdate.ID);
+
+            // Check if the existing comment is found
+            if (existingComment == null)
+            {
+                response.Success = false;
+                response.Message = "Comment not found. Update failed.";
+                return response;
+            }
+
+            // Check if request.AuthorId is equal to comment.AuthorId
+            if (request.AuthorID != existingComment.AuthorID)
+            {
+                response.Success = false;
+                response.Message = "Authorization failed: AuthorID does not match.";
+                return response;
+            }
+
             // Assume the repository method for updating a comment returns the updated comment
             var updatedComment = await _commentRepository.Update(commentToUpdate);
 
-            
+            response.Success = true;
+            response.Message = "Comment updated successfully";
+            response.Data = _mapper.Map<CommentDTO>(updatedComment);
 
-            return _mapper.Map<CommentDTO>(updatedComment);
+            return response;
         }
     }
 }
