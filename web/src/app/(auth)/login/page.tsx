@@ -10,21 +10,21 @@ interface LoginProps {
 const Login: React.FC<LoginProps> = (props) => {
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center p-6 space-y-12 lg:px-8">
-      <div className="mt-6 flex items-center justify-end gap-x-6">
+      <div className="flex items-center justify-end">
         <Link
           href="/signup"
-          className="bg-blue-600 text-white px-5 py-2 rounded-sm"
+          className="rounded-sm bg-blue-600 mt-3 px-4 py-1 text-sm font-light leading-6 text-slate-300 shadow-2xl hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 uppercase"
         >
           Sign Up
         </Link>
       </div>
-      <div className="border border-blue-700 px-20 py-10 rounded-xl mx-10 sm:mx-auto sm:max-w-sm space-y-16">
-        <div className="mx-auto">
+      <div className="border border-blue-500 px-12 py-10 pb-20 rounded-3xl mx-10 sm:mx-auto space-y-16 min-w-min">
+        <div className="mx-auto w-72">
           <h2 className="text-center text-4xl font-bold leading-9 tracking-tight text-blue-700">
             Sign In
           </h2>
         </div>
-        <div className="w-32 h-32 relative sm:mx-auto">
+        <div className="w-32 h-28 relative sm:mx-auto">
           <Image
             fill
             className="rounded-full mx-auto"
@@ -35,7 +35,7 @@ const Login: React.FC<LoginProps> = (props) => {
 
         <div className="mx-auto">
           <form className="space-y-6" action="#" method="POST">
-            <div className="mt-2">
+            <div className="mt-1">
               <input
                 id="email"
                 name="email"
@@ -60,9 +60,9 @@ const Login: React.FC<LoginProps> = (props) => {
             <div className="mt-6 flex items-center justify-end gap-x-6">
               <button
                 type="submit"
-                className="flex justify-center rounded-sm bg-blue-600 mt-3 px-4 py-1 text-sm font-light leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                className="rounded-sm bg-blue-600 mt-3 px-4 py-1 text-sm font-light leading-6 text-slate-300 shadow-2xl hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 uppercase"
               >
-                SIGN UP
+                SIGN IN
               </button>
             </div>
           </form>
