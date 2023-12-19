@@ -20,7 +20,7 @@ public class CreateBlogCommandHandler : IRequestHandler<CreateBlogCommand, Domai
     public async Task<Domain.Blog> Handle(CreateBlogCommand request, CancellationToken cancellationToken)
     {
         var validator = new CreateBlogCommandValidator();
-        var validationResult = await validator.ValidateAsync(request, cancellationToken);
+        var validationResult = await validator.ValidateAsync(request.BlogDto, cancellationToken);
         if (!validationResult.IsValid)
             throw new BadRequestException("Invalid Blog Request", validationResult);
 

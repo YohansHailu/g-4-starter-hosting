@@ -19,6 +19,7 @@ namespace API.Controllers;
 public class BlogController : ControllerBase
 {
     private readonly IMapper _mapper;
+    private readonly IMediator _mediator;
     private readonly IAuthenticatedUserService _userService;
     public BlogController(IMediator mediator, IMapper mapper, IAuthenticatedUserService userService)
     {
