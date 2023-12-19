@@ -20,7 +20,6 @@ public class GetBlogDetailsQueryHandler : IRequestHandler<GetBlogDetailsQuery, B
     
     public async Task<BlogDetailsDto> Handle(GetBlogDetailsQuery request, CancellationToken cancellationToken)
     {
-
         var blog = await _blogRepository.Get(request.Id);
 
         if (blog == null)

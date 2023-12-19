@@ -1,10 +1,12 @@
 using Application.DTOs.Blog;
+using Application.Exceptions;
 using Application.Features.Blog.Commands.CreateBlog;
 using Application.Features.Blog.Commands.DeleteBlog;
 using Application.Features.Blog.Commands.UpdateBlog;
 using Application.Features.Blog.Queries.GetAllBlogs;
 using Application.Features.Blog.Queries.GetBlogDetails;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -14,6 +16,7 @@ namespace API.Controllers;
 public class BlogController : ControllerBase
 {
     private readonly IMediator _mediator;
+    
     public BlogController(IMediator mediator)
     {
         this._mediator = mediator;
@@ -29,8 +32,19 @@ public class BlogController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<BlogDto>> Get(Guid id)
     {
-        var result = await _mediator.Send(new GetBlogDetailsQuery(id));
-        return Ok(result);
+        try
+        {
+            var result = await _mediator.Send(new GetBlogDetailsQuery(id));
+            return Ok(result);
+        }
+        catch(NotFoundException)
+        {
+            return NotFound();
+        }
+        catch (Exception)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError);
+        }
     }
 
     [HttpPost]
@@ -39,9 +53,20 @@ public class BlogController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<BlogDetailsDto>> Create(CreateBlogCommand blog)
     {
-        var result = await _mediator.Send(blog);
-
-        return CreatedAtAction(nameof(Get), new { id = result.id }, result);
+        try
+        {
+            var result = await _mediator.Send(blog);
+            return CreatedAtAction(nameof(Get), new { id = result.id }, result);
+        }
+        catch (BadRequestException)
+        {
+            return BadRequest();
+        }
+        catch (Exception)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError);
+        }
+        
     }
 
     [HttpPut("{id}")]
@@ -51,10 +76,24 @@ public class BlogController : ControllerBase
     [ProducesDefaultResponseType]
     public async Task<ActionResult<BlogDto>> Update(Guid id, UpdateBlogCommand blog)
     {
-        blog.Id = id;
-        var result = await _mediator.Send(blog);
-
-        return Ok(result);
+        try
+        {
+            blog.Id = id;
+            var result = await _mediator.Send(blog);
+            return Ok(result);
+        }
+        catch (NotFoundException)
+        {
+            return NotFound();
+        }
+        catch (BadRequestException)
+        {
+            return BadRequest();
+        }
+        catch (Exception)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError);
+        }
     }
 
     [HttpDelete("{id}")]
@@ -63,8 +102,19 @@ public class BlogController : ControllerBase
     [ProducesDefaultResponseType]
     public async Task<ActionResult> Delete(Guid id)
     {
-        await _mediator.Send(new DeleteBlogCommand {Id = id});
-
-        return NoContent();
+       
+        try
+        {
+            await _mediator.Send(new DeleteBlogCommand {Id = id});
+            return NoContent();
+        }
+        catch (NotFoundException)
+        {
+            return NotFound();
+        }
+        catch (Exception)
+        {
+            return BadRequest();
+        }
     }
 }

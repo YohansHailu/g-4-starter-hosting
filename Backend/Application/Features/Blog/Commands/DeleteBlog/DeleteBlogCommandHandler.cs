@@ -20,7 +20,7 @@ public class DeleteBlogCommandHandler : IRequestHandler<DeleteBlogCommand, Unit>
         var blogToDelete = await _blogRepository.Get(request.Id);
 
         if (blogToDelete == null)
-            throw new Exception("blog not found");
+            throw new NotFoundException(nameof(Domain.Blog), request.Id);
       
 
         await _blogRepository.Delete(blogToDelete);
