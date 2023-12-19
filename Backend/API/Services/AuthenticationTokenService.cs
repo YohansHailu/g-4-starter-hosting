@@ -3,8 +3,8 @@ using Domain;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Application.DTOs.userAuthDto;
 
-using API.Controllers.Dto;
 namespace API.Services;
 
 public class AuthenticationTokenService
