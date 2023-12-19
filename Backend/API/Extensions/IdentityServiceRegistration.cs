@@ -18,6 +18,7 @@ public static class IdentityServiceRegistration
                     )
                 .AddEntityFrameworkStores<AppDbContext>();
             
+            
             return services;
         }
 }

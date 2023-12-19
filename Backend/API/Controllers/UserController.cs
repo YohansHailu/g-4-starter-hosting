@@ -24,7 +24,7 @@ public class UserController : Controller
         _tokenService = tokenService;
 
     }
-
+    
 
     [HttpPost("login")]
     public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
@@ -112,7 +112,6 @@ public class UserController : Controller
         {
             return Unauthorized();
         }
-        
         
         return Ok(user);
     }
