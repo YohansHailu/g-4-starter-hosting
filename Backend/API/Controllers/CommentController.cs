@@ -1,15 +1,14 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Security.Claims;
 using Application.DTOs.Comment;
-using Application.Features.Comments.Handlers.Commands;
-using Application.Features.Comments.Handlers.Queries;
 using Application.Features.Comments.Requests.Commands;
 using Application.Features.Comments.Requests.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Application.Responses;
+using Domain;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
@@ -19,9 +18,18 @@ namespace API.Controllers
     {
         private readonly IMediator _mediator;
 
-        public CommentController(IMediator mediator)
+        private readonly UserManager<User> _userManager;
+        public CommentController(IMediator mediator, UserManager<User> userManager)
         {
             _mediator = mediator;
+            _userManager = userManager;
+        }
+
+        public Guid CurrentUserId()
+        {
+                var user = _userManager.Users
+                .FirstOrDefault(x => x.Email == User.FindFirstValue(ClaimTypes.Email));
+                return Guid.Parse(user.Id);
         }
 
         [HttpPost("leave")]
@@ -29,21 +37,21 @@ namespace API.Controllers
         [ProducesResponseType(200, Type = typeof(SuccessResponse<object>))] // Assuming SuccessResponse has a generic type
         [ProducesResponseType(400, Type = typeof(ErrorResponse))]
         [ProducesResponseType(500, Type = typeof(ErrorResponse))]
-        public async Task<IActionResult> LeaveComment([FromBody] LeaveCommentDTO leaveCommentDTO)
+        public async Task<IActionResult> LeaveComment([FromBody] LeaveCommentDTO leaveCommentDto)
         {
             try
             {
                 var command = new LeaveCommentCommand
                 {
-                    LeaveCommentDTO = leaveCommentDTO,
-                    AuthorID = Guid.Parse(User.FindFirst("sub")?.Value ?? throw new InvalidOperationException("User ID not found"))
+                    LeaveCommentDTO = leaveCommentDto,
+                    AuthorID = CurrentUserId()
                 };
 
                 var response = await _mediator.Send(command);
 
                 if (response.Success)
                 {
-                    return Ok(new SuccessResponse<object> { ID = response.ID, Data = response.Data, Message = response.Message });
+                    return Ok(new SuccessResponse<object> { ID = response.ID, Data = response.ID, Message = response.Message });
                 }
 
                 return BadRequest(new ErrorResponse { Errors = response.Errors, Message = response.Message });
@@ -60,21 +68,21 @@ namespace API.Controllers
         [ProducesResponseType(200, Type = typeof(SuccessResponse<object>))]
         [ProducesResponseType(400, Type = typeof(ErrorResponse))]
         [ProducesResponseType(500, Type = typeof(ErrorResponse))]
-        public async Task<IActionResult> ReplyToComment([FromBody] ReplyToCommentDTO replyToCommentDTO)
+        public async Task<IActionResult> ReplyToComment([FromBody] ReplyToCommentDTO replyToCommentDto)
         {
             try
             {
                 var command = new ReplyToCommentCommand
                 {
-                    ReplyToCommentDTO = replyToCommentDTO,
-                    AuthorID = Guid.Parse(User.FindFirst("sub")?.Value ?? throw new InvalidOperationException("User ID not found"))
+                    ReplyToCommentDTO = replyToCommentDto,
+                    AuthorID = CurrentUserId()
                 };
 
                 var response = await _mediator.Send(command);
 
                 if (response.Success)
                 {
-                    return Ok(new SuccessResponse<object> { Data = response.Data, Message = response.Message});
+                    return Ok(new SuccessResponse<object> { Data = response.Data, Message = response.Message });
                 }
 
                 return BadRequest(new ErrorResponse { Errors = response.Errors, Message = response.Message });
@@ -91,21 +99,21 @@ namespace API.Controllers
         [ProducesResponseType(200, Type = typeof(SuccessResponse<object>))]
         [ProducesResponseType(400, Type = typeof(ErrorResponse))]
         [ProducesResponseType(500, Type = typeof(ErrorResponse))]
-        public async Task<IActionResult> UpdateComment([FromBody] UpdateCommentDTO updateCommentDTO)
+        public async Task<IActionResult> UpdateComment([FromBody] UpdateCommentDTO updateCommentDto)
         {
             try
             {
                 var command = new UpdateCommentCommand
                 {
-                    UpdateCommentDTO = updateCommentDTO,
-                    AuthorID = Guid.Parse(User.FindFirst("sub")?.Value ?? throw new InvalidOperationException("User ID not found"))
+                    UpdateCommentDTO = updateCommentDto,
+                    AuthorID = CurrentUserId()
                 };
 
                 var response = await _mediator.Send(command);
 
                 if (response.Success)
                 {
-                    return Ok(new SuccessResponse<object> { Data = response.Data , Message = "Comment updated successfully" });
+                    return Ok(new SuccessResponse<object> { Data = response.Data, Message = "Comment updated successfully" });
                 }
 
                 return BadRequest(new ErrorResponse { Errors = response.Errors, Message = response.Message });
@@ -122,14 +130,14 @@ namespace API.Controllers
         [ProducesResponseType(200, Type = typeof(SuccessResponse<object>))]
         [ProducesResponseType(400, Type = typeof(ErrorResponse))]
         [ProducesResponseType(500, Type = typeof(ErrorResponse))]
-        public async Task<IActionResult> DeleteComment([FromBody] DeleteCommentDTO deleteCommentDTO)
+        public async Task<IActionResult> DeleteComment([FromBody] DeleteCommentDTO deleteCommentDto)
         {
             try
             {
                 var command = new DeleteCommentCommand
                 {
-                    DeleteCommentDTO = deleteCommentDTO,
-                    AuthorID = Guid.Parse(User.FindFirst("sub")?.Value ?? throw new InvalidOperationException("User ID not found"))
+                    DeleteCommentDTO = deleteCommentDto,
+                    AuthorID = CurrentUserId()
                 };
 
                 var response = await _mediator.Send(command);
@@ -148,7 +156,7 @@ namespace API.Controllers
             }
         }
 
-        [HttpGet("{articleID}")]
+        [HttpGet("article/{articleID}")]
         [ProducesResponseType(200, Type = typeof(SuccessResponse<object>))]
         [ProducesResponseType(404, Type = typeof(ErrorResponse))]
         [ProducesResponseType(500, Type = typeof(ErrorResponse))]
