@@ -28,7 +28,7 @@ const Login: React.FC<LoginProps> = (props) => {
           <Image
             fill
             className="rounded-full mx-auto"
-            src="https://cdn.discordapp.com/attachments/1184179126286954597/1186382809045139476/image.png?ex=65930c17&is=65809717&hm=98a863b38fb2a8e4b02a553df118f00012833a530b7f0b8f7e1141cb0b0d44bc&"
+            src="/assets/images/signin.webp"
             alt="Our blog logo"
           />
         </div>
