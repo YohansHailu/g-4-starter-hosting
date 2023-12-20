@@ -6,7 +6,7 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="grid grid-cols-12">
         <div className="col-span-8">
-          {[1, 2, 3].map((_, idx) => {
+          {[1, 2, 3, 4, 5, 6, 7, 8].map((_, idx) => {
             return (
               <div className="flex mb-4 mx-4 lg:mx-10" key={idx}>
                 <BlogCard />

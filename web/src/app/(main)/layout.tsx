@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 
 export default function RootLayout({
     children,
@@ -7,7 +8,7 @@ export default function RootLayout({
 }) {
     return (
         <div className="flex flex-row">
-            <div className="w-40 h-screen flex flex-col justify-between items-center py-10 sticky top-0 border-r-1">
+            <div className="h-screen flex flex-col justify-between items-center py-10 px-2 sticky top-0 border-r-1">
                 <div>
                     <svg width="38" height="38" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -16,11 +17,18 @@ export default function RootLayout({
                     </svg>
                 </div>
                 <div className="flex flex-col gap-7 items-center justify-between">
-                    <div>
+                    <Link href="/">
+                        <div>
+                            <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19.5861 9.81506L10.499 1.12755C10.4336 1.06482 10.3559 1.01507 10.2703 0.981114C10.1847 0.947163 10.093 0.929688 10.0004 0.929688C9.90779 0.929688 9.81608 0.947163 9.73053 0.981114C9.64497 1.01507 9.56726 1.06482 9.50183 1.12755L0.414754 9.81506C0.150017 10.0683 0 10.4124 0 10.7712C0 11.5163 0.633161 12.122 1.41193 12.122H2.36939V18.3211C2.36939 18.6946 2.68487 18.9965 3.07535 18.9965H8.58849V14.2686H11.0594V18.9965H16.9255C17.316 18.9965 17.6314 18.6946 17.6314 18.3211V12.122H18.5889C18.9639 12.122 19.3235 11.9806 19.5883 11.7252C20.1376 11.1975 20.1376 10.3427 19.5861 9.81506Z" fill="black" />
+                            </svg>
+                        </div>
+                    </Link>
+                    {/* <div>
                         <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M19.5861 9.81506L10.499 1.12755C10.4336 1.06482 10.3559 1.01507 10.2703 0.981114C10.1847 0.947163 10.093 0.929688 10.0004 0.929688C9.90779 0.929688 9.81608 0.947163 9.73053 0.981114C9.64497 1.01507 9.56726 1.06482 9.50183 1.12755L0.414754 9.81506C0.150017 10.0683 0 10.4124 0 10.7712C0 11.5163 0.633161 12.122 1.41193 12.122H2.36939V18.3211C2.36939 18.6946 2.68487 18.9965 3.07535 18.9965H8.58849V14.2686H11.0594V18.9965H16.9255C17.316 18.9965 17.6314 18.6946 17.6314 18.3211V12.122H18.5889C18.9639 12.122 19.3235 11.9806 19.5883 11.7252C20.1376 11.1975 20.1376 10.3427 19.5861 9.81506Z" fill="black" />
                         </svg>
-                    </div>
+                    </div> */}
                     <div>
                         <svg width="11" height="9" viewBox="0 0 11 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M0 8.5C0 8.36739 0.0526785 8.24021 0.146447 8.14645C0.240215 8.05268 0.367392 8 0.5 8H10.5C10.6326 8 10.7598 8.05268 10.8536 8.14645C10.9473 8.24021 11 8.36739 11 8.5C11 8.63261 10.9473 8.75979 10.8536 8.85355C10.7598 8.94732 10.6326 9 10.5 9H0.5C0.367392 9 0.240215 8.94732 0.146447 8.85355C0.0526785 8.75979 0 8.63261 0 8.5ZM0 4.5C0 4.36739 0.0526785 4.24021 0.146447 4.14645C0.240215 4.05268 0.367392 4 0.5 4H10.5C10.6326 4 10.7598 4.05268 10.8536 4.14645C10.9473 4.24021 11 4.36739 11 4.5C11 4.63261 10.9473 4.75979 10.8536 4.85355C10.7598 4.94732 10.6326 5 10.5 5H0.5C0.367392 5 0.240215 4.94732 0.146447 4.85355C0.0526785 4.75979 0 4.63261 0 4.5ZM0 0.5C0 0.367392 0.0526785 0.240215 0.146447 0.146447C0.240215 0.0526785 0.367392 0 0.5 0H10.5C10.6326 0 10.7598 0.0526785 10.8536 0.146447C10.9473 0.240215 11 0.367392 11 0.5C11 0.632608 10.9473 0.759785 10.8536 0.853553C10.7598 0.947321 10.6326 1 10.5 1H0.5C0.367392 1 0.240215 0.947321 0.146447 0.853553C0.0526785 0.759785 0 0.632608 0 0.5Z" fill="black" fill-opacity="0.5" />
@@ -33,7 +41,9 @@ export default function RootLayout({
                     </div>
                 </div>
                 <div className="rounded-full overflow-hidden w-12 h-12">
-                    <Image src="/assets/images/profile.avif" alt="profile picture" width={100} height={100} className=" " />
+                    <Link href="/profile">
+                        <Image src="/assets/images/profile.avif" alt="profile picture" width={100} height={100} className=" " />
+                    </Link>
                 </div>
             </div>
             <div>{children}</div>
