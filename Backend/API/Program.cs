@@ -24,6 +24,13 @@ builder.Services.AddIdentityCoreService();
 
 builder.Services.AddScoped<IAuthenticatedUserService, AuthenticatedUserService>();
 
+builder.Services.AddCors(o =>
+{
+    o.AddPolicy("AllowedOrigins",
+        builder => builder.AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader());
+});
 
 var app = builder.Build();
 
@@ -35,6 +42,8 @@ if (app.Environment.IsDevelopment())
 
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowedOrigins");
 
 app.UseAuthentication();
 app.UseAuthorization();
