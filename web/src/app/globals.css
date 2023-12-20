@@ -5,3 +5,16 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
 }
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(37, 99, 235);
+    border-radius: 35px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(37, 99, 235, 0.8);
+}
