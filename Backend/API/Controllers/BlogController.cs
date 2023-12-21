@@ -29,7 +29,7 @@ public class BlogController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<List<BlogDto>> Get()
+    public async Task<List<BlogDetailsDto>> Get()
     {
         var result = await _mediator.Send(new GetAllBlogsQuery());
         return result;

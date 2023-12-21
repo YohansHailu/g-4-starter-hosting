@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Application.Features.Blog.Queries.GetAllBlogs;
 
-public class GetAllBlogsQueryHandler : IRequestHandler<GetAllBlogsQuery, List<BlogDto>>
+public class GetAllBlogsQueryHandler : IRequestHandler<GetAllBlogsQuery, List<BlogDetailsDto>>
 {
     private readonly IBlogRepository _blogRepository;
     private readonly IMapper _mapper;
@@ -17,14 +17,14 @@ public class GetAllBlogsQueryHandler : IRequestHandler<GetAllBlogsQuery, List<Bl
         _mapper = mapper;
     }
     
-    public async Task<List<BlogDto>> Handle(GetAllBlogsQuery request, CancellationToken cancellationToken)
+    public async Task<List<BlogDetailsDto>> Handle(GetAllBlogsQuery request, CancellationToken cancellationToken)
     {
 
         var blog = await _blogRepository.GetAll();
 
         
 
-        var blogDto = _mapper.Map<List<BlogDto>>(blog);
+        var blogDto = _mapper.Map<List<BlogDetailsDto>>(blog);
 
         return blogDto;
     }
